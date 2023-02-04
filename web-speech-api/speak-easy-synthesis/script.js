@@ -28,9 +28,15 @@ function populateVoiceList() {
     voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
   voiceSelect.innerHTML = "";
 
+  const germanDict = ['German', 'Deutsch', '(de)', '(de-AT)', 'de-CH', 'de-DE', 'de-LI', 'de-LU'];
   for (let i = 0; i < voices.length; i++) {
+    const textContent = `${voices[i].name} (${voices[i].lang})`;
+    if (!germanDict.some(x => textContent.toLowerCase().includes(x.toLowerCase()))) {
+      continue;
+    }
+    
     const option = document.createElement("option");
-    option.textContent = `${voices[i].name} (${voices[i].lang})`;
+    option.textContent = textContent;
 
     if (voices[i].default) {
       option.textContent += " -- DEFAULT";
